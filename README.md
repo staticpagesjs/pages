@@ -18,5 +18,5 @@ And a lot of renderers for the output
 - Jade
 - Dot
 
-Input readers and output writers are easily extensible allowing to make your own implementation.
+Input readers and output writers are easily extensible allowing you to make your own implementation.
 
