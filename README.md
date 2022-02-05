@@ -26,13 +26,13 @@ And a lot of renderers for the output
 
 | % | Task | Details |
 |---|------|---------|
-| stable | Core module | The main component. Wires the readers writers and controllers together. |
-| beta | CLI module | Allows to easily use the static generator from the command line. Needs care on security front. |
-| not published yet | Docker image | A docker image that contains my packages ready to use in a build process. |
-| 1% | Documentation/project page | This site you are looking now. |
-| 50% beta | markdown-reader | Generic reader implementation. incremental builds and docs left to be done |
-| 50% beta | json/yaml-reader | Generic reader implementation. incremental builds and docs left to be done |
-| 30% experimental | twig-writer | Needs more care on security front and on API front. |
+| stable | [Core module](https://www.npmjs.com/package/@static-pages/core) | The main component. Wires the readers writers and controllers together. |
+| beta | [CLI module](https://www.npmjs.com/package/@static-pages/cli) | Allows to easily use the static generator from the command line. Needs care on security front. |
+| not published yet | [Docker image](https://hub.docker.com/repository/docker/lionel87/static-pages-js) | A docker image that contains my packages ready to use in a build process. |
+| 1% | [Documentation/project page](https://staticpagesjs.github.io/) | This site you are looking now. |
+| 50% beta | [markdown-reader](https://www.npmjs.com/package/@static-pages/markdown-reader) | Generic reader implementation. incremental builds and docs left to be done |
+| 50% beta | [json/yaml-reader](https://www.npmjs.com/package/@static-pages/yaml-reader) | Generic reader implementation. incremental builds and docs left to be done |
+| 30% experimental | [twig-writer](https://www.npmjs.com/package/@static-pages/twig-writer) | Needs more care on security front and on API front. |
 | not started | dot-writer | Will be implemented after the twig experimental |
 | not started | ejs-writer | Will be implemented after the twig experimental |
 | not started | handlebars-writer | Will be implemented after the twig experimental |
@@ -41,6 +41,8 @@ And a lot of renderers for the output
 | not started | nunjucks-writer | Will be implemented after the twig experimental |
 | not started | pug-writer | Will be implemented after the twig experimental |
 | not started | underscore-writer | Will be implemented after the twig experimental |
+
+Readers for various databases (oracle, mysql, postgre, mongo etc.) will considered and implemented after the roadmap above are complete.
 
 ## Your own readers and writers
 
