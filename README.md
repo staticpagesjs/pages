@@ -30,7 +30,7 @@ And a lot of renderers for the output
 | beta | [CLI module](https://www.npmjs.com/package/@static-pages/cli) | Allows to easily use the static generator from the command line. Needs care on security front. |
 | beta | [Docker image](https://hub.docker.com/repository/docker/staticpages/cli) | A docker image that contains my packages ready to use in a build process. |
 | 2% | [Documentation/project page](https://staticpagesjs.github.io/) | This site you are looking now. |
-| stable | [markdown-reader](https://www.npmjs.com/package/@static-pages/markdown-reader) | Generic reader implementation. |
+| stable | [file-reader](https://www.npmjs.com/package/@static-pages/file-reader) | Generic reader implementation. |
 | stable | [markdown-reader](https://www.npmjs.com/package/@static-pages/markdown-reader) | Markdown reader implementation. |
 | stable | [yaml-reader](https://www.npmjs.com/package/@static-pages/yaml-reader) | Yaml / json reader implementation. |
 | 30% experimental | [twig-writer](https://www.npmjs.com/package/@static-pages/twig-writer) | Needs more care on security front and on API front. |
