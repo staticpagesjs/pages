@@ -29,9 +29,10 @@ And a lot of renderers for the output
 | stable | [Core module](https://www.npmjs.com/package/@static-pages/core) | The main component. Wires the readers writers and controllers together. |
 | beta | [CLI module](https://www.npmjs.com/package/@static-pages/cli) | Allows to easily use the static generator from the command line. Needs care on security front. |
 | beta | [Docker image](https://hub.docker.com/repository/docker/staticpages/cli) | A docker image that contains my packages ready to use in a build process. |
-| 1% | [Documentation/project page](https://staticpagesjs.github.io/) | This site you are looking now. |
-| 50% beta | [markdown-reader](https://www.npmjs.com/package/@static-pages/markdown-reader) | Generic reader implementation. incremental builds and docs left to be done |
-| 50% beta | [json/yaml-reader](https://www.npmjs.com/package/@static-pages/yaml-reader) | Generic reader implementation. incremental builds and docs left to be done |
+| 2% | [Documentation/project page](https://staticpagesjs.github.io/) | This site you are looking now. |
+| stable | [markdown-reader](https://www.npmjs.com/package/@static-pages/markdown-reader) | Generic reader implementation. |
+| stable | [markdown-reader](https://www.npmjs.com/package/@static-pages/markdown-reader) | Markdown reader implementation. |
+| stable | [yaml-reader](https://www.npmjs.com/package/@static-pages/yaml-reader) | Yaml / json reader implementation. |
 | 30% experimental | [twig-writer](https://www.npmjs.com/package/@static-pages/twig-writer) | Needs more care on security front and on API front. |
 | not started | dot-writer | Will be implemented after the twig experimental |
 | not started | ejs-writer | Will be implemented after the twig experimental |
@@ -48,19 +49,22 @@ Readers for various databases (oracle, mysql, postgre, mongo etc.) will consider
 
 Input readers and output writers are easily extensible allowing you to make your own implementation.
 
-### Example reader (json)
+### Example reader #1
+
+This version implements everything from scratch.
+
 ```js
 const fs = require('fs');
 const path = require('path');
 const glob = require('fast-glob');
 
-module.exports = ({ cwd, pattern = '**/*.json' } = {}) => ({
+module.exports = ({ cwd = 'pages', pattern = '**/*.json' } = {}) => ({
   [Symbol.iterator]() {
-    const absCwd = path.resolve(process.cwd(), cwd);
+    const absCwd = path.resolve(cwd);
     const files = glob.sync(pattern, { cwd: absCwd, absolute: true });
     return {
       next() {
-        const file = files.pop();
+        const file = files.shift();
         if (!file) { // no more input
           return { done: true };
         }
@@ -70,7 +74,7 @@ module.exports = ({ cwd, pattern = '**/*.json' } = {}) => ({
         const payload = JSON.parse(fs.readFileSync(file, 'utf-8'));
         
         const data = {
-          // implement header field as you feel
+          // implement header field as you feel, add more if needed
           header: {
             cwd: absCwd,
             path: relativePath,
@@ -88,11 +92,38 @@ module.exports = ({ cwd, pattern = '**/*.json' } = {}) => ({
 });
 ```
 
+### Example reader #2
+
+This version uses the `@static-pages/file-reader` as a base implementation. Enables incremental builds out-of-the-box for your reader.
+
+```js
+const reader = require('@static-pages/file-reader');
+
+module.exports = ({ cwd = 'pages', pattern = '**/*.json', incremental = false } = {}) => ({
+  *[Symbol.iterator]() {
+    for (const raw of reader({ cwd, pattern, incremental })) {
+      const payload = JSON.parse(raw.body);
+      yield {
+        header: raw.header,
+        ...payload,
+      };
+    }
+  }
+});
+```
+
 ### Example writer
 
-This could be much comlex than this below. The example just json stringify but the same way it could render with a third party library.
+The `JSON.stringify` should be replaced with your own template rendering logic.
 
 ```js
 const fs = require('fs');
-module.exports = ({ key = 'url' } = {}) => (data) => fs.writeFileSync(data[key] || 'unnamed', JSON.stringify(data, null, 4));
+module.exports = ({ buildDir = 'build' }) => (
+  (data) => {
+    fs.writeFileSync(
+      buildDir + '/' + (data?.header?.path || 'unnamed'),
+      JSON.stringify(data, null, 4)
+    );
+  }
+);
 ```
