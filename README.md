@@ -27,7 +27,7 @@ And a lot of renderers for the output
 | % | Task | Details |
 |---|------|---------|
 | stable | [Core module](https://www.npmjs.com/package/@static-pages/core) | The main component. Wires the readers writers and controllers together. |
-| beta | [CLI module](https://www.npmjs.com/package/@static-pages/cli) | Allows to easily use the static generator from the command line. Needs care on security front. |
+| beta | [CLI module](https://www.npmjs.com/package/@static-pages/cli) | Allows to easily use the static generator from the command line. |
 | beta | [Docker image](https://hub.docker.com/repository/docker/staticpages/cli) | A docker image that contains my packages ready to use in a build process. |
 | 2% | [Documentation/project page](https://staticpagesjs.github.io/) | This site you are looking now. |
 | stable | [file-reader](https://www.npmjs.com/package/@static-pages/file-reader) | Generic reader implementation. |
