@@ -31,9 +31,10 @@ And a lot of renderers for the output
 | beta | [Docker image](https://hub.docker.com/repository/docker/staticpages/cli) | A docker image that contains my packages ready to use in a build process. |
 | 2% | [Documentation/project page](https://staticpagesjs.github.io/) | This site you are looking now. |
 | stable | [file-reader](https://www.npmjs.com/package/@static-pages/file-reader) | Generic reader implementation. |
+| stable | [file-writer](https://www.npmjs.com/package/@static-pages/file-writer) | Generic writer implementation. |
 | stable | [markdown-reader](https://www.npmjs.com/package/@static-pages/markdown-reader) | Markdown reader implementation. |
 | stable | [yaml-reader](https://www.npmjs.com/package/@static-pages/yaml-reader) | Yaml / json reader implementation. |
-| 30% experimental | [twig-writer](https://www.npmjs.com/package/@static-pages/twig-writer) | Needs more care on security front and on API front. |
+| 70% experimental | [twig-writer](https://www.npmjs.com/package/@static-pages/twig-writer) | Needs more care on security front and on API front. |
 | not started | dot-writer | Will be implemented after the twig experimental |
 | not started | ejs-writer | Will be implemented after the twig experimental |
 | not started | handlebars-writer | Will be implemented after the twig experimental |
@@ -72,7 +73,7 @@ module.exports = ({ cwd = 'pages', pattern = '**/*.json' } = {}) => ({
         const relativePath = path.relative(absCwd, file);
         const extName = path.extname(file);
         const payload = JSON.parse(fs.readFileSync(file, 'utf-8'));
-        
+
         const data = {
           // implement header field as you feel, add more if needed
           header: {
@@ -97,11 +98,11 @@ module.exports = ({ cwd = 'pages', pattern = '**/*.json' } = {}) => ({
 This version uses the `@static-pages/file-reader` as a base implementation. Enables incremental builds out-of-the-box for your reader.
 
 ```js
-const reader = require('@static-pages/file-reader');
+const fileReader = require('@static-pages/file-reader').default;
 
 module.exports = ({ cwd = 'pages', pattern = '**/*.json', incremental = false } = {}) => ({
   *[Symbol.iterator]() {
-    for (const raw of reader({ cwd, pattern, incremental })) {
+    for (const raw of fileReader({ cwd, pattern, incremental })) {
       const payload = JSON.parse(raw.body);
       yield {
         header: raw.header,
@@ -112,18 +113,34 @@ module.exports = ({ cwd = 'pages', pattern = '**/*.json', incremental = false } 
 });
 ```
 
-### Example writer
+### Example writer #1
 
 The `JSON.stringify` should be replaced with your own template rendering logic.
 
 ```js
 const fs = require('fs');
-module.exports = ({ buildDir = 'build' }) => (
+module.exports = ({ outDir = 'build' }) => (
   (data) => {
     fs.writeFileSync(
-      buildDir + '/' + (data?.header?.path || 'unnamed'),
+      outDir + '/' + (data?.header?.path || 'unnamed'),
       JSON.stringify(data, null, 4)
     );
   }
 );
+```
+
+### Example writer #2
+
+This version uses the `@static-pages/file-writer` as a base implementation. The `JSON.stringify` should be replaced with your own template rendering logic.
+
+```js
+const fs = require('fs');
+const fileWriter = require('@static-pages/file-writer').default;
+module.exports = ({ gloabls = {}, ...rest }) => {
+  const writer = fileWriter({
+    ...rest,
+    renderer: JSON.stringify(data, null, 4)
+  });
+  return d => writer(d);
+};
 ```
