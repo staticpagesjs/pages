@@ -34,7 +34,7 @@ And a lot of renderers for the output
 | stable | [file-writer](https://www.npmjs.com/package/@static-pages/file-writer) | Generic writer implementation. |
 | stable | [markdown-reader](https://www.npmjs.com/package/@static-pages/markdown-reader) | Markdown reader implementation. |
 | stable | [yaml-reader](https://www.npmjs.com/package/@static-pages/yaml-reader) | Yaml / json reader implementation. |
-| 70% experimental | [twig-writer](https://www.npmjs.com/package/@static-pages/twig-writer) | Needs more care on security front and on API front. |
+| experimental(70%) | [twig-writer](https://www.npmjs.com/package/@static-pages/twig-writer) | Needs more care on security front and on API front. |
 | not started | dot-writer | Will be implemented after the twig experimental |
 | not started | ejs-writer | Will be implemented after the twig experimental |
 | not started | handlebars-writer | Will be implemented after the twig experimental |
