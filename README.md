@@ -23,6 +23,7 @@ And a lot of renderers for the output
 - Jade
 - Handlebars
 - Underscore
+- Placeholder
 
 ## Roadmap
 
@@ -46,6 +47,7 @@ And a lot of renderers for the output
 | not started | handlebars-writer | Will be implemented after the dot-writer |
 | not started | jade-writer | Will be implemented after the handlebars-writer |
 | not started | underscore-writer | Will be implemented after the jade-writer |
+| not started | placeholder-writer | Will be implemented after the underscore-writer. Its a simple .replace() implementation without any third party template engine. |
 
 Readers for various databases (oracle, mysql, postgre, mongo etc.) will considered and implemented after the roadmap above are complete.
 
