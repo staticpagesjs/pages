@@ -16,11 +16,12 @@ And a lot of renderers for the output
 - Twig
 - ejs
 - Mustache
-- Handlebars
 - Pug
-- Underscore
-- Jade
+- Nunjucks
 - Dot
+- Jade
+- Handlebars
+- Underscore
 
 ## Roadmap
 
@@ -34,15 +35,15 @@ And a lot of renderers for the output
 | stable | [file-writer](https://www.npmjs.com/package/@static-pages/file-writer) | Generic writer implementation. |
 | stable | [markdown-reader](https://www.npmjs.com/package/@static-pages/markdown-reader) | Markdown reader implementation. |
 | stable | [yaml-reader](https://www.npmjs.com/package/@static-pages/yaml-reader) | Yaml / json reader implementation. |
-| experimental(70%) | [twig-writer](https://www.npmjs.com/package/@static-pages/twig-writer) | Needs more care on security front and on API front. |
-| not started | dot-writer | Will be implemented after the twig experimental |
-| not started | ejs-writer | Will be implemented after the twig experimental |
-| not started | handlebars-writer | Will be implemented after the twig experimental |
-| not started | jade-writer | Will be implemented after the twig experimental |
-| not started | mustache-writer | Will be implemented after the twig experimental |
-| not started | nunjucks-writer | Will be implemented after the twig experimental |
-| not started | pug-writer | Will be implemented after the twig experimental |
-| not started | underscore-writer | Will be implemented after the twig experimental |
+| stable | [twig-writer](https://www.npmjs.com/package/@static-pages/twig-writer) | Twig template writer, uses [Twing](https://www.npmjs.com/package/twing). |
+| not started | nunjucks-writer | Will be implemented after the twig-writer |
+| not started | ejs-writer | Will be implemented after the twig nunjucks-writer |
+| not started | mustache-writer | Will be implemented after the ejs-writer |
+| not started | pug-writer | Will be implemented after the mustache-writer |
+| not started | dot-writer | Will be implemented after the pug-writer |
+| not started | handlebars-writer | Will be implemented after the dot-writer |
+| not started | jade-writer | Will be implemented after the handlebars-writer |
+| not started | underscore-writer | Will be implemented after the jade-writer |
 
 Readers for various databases (oracle, mysql, postgre, mongo etc.) will considered and implemented after the roadmap above are complete.
 
