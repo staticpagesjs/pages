@@ -36,7 +36,7 @@ And a lot of renderers for the output
 | stable | [markdown-reader](https://www.npmjs.com/package/@static-pages/markdown-reader) | Markdown reader implementation. |
 | stable | [yaml-reader](https://www.npmjs.com/package/@static-pages/yaml-reader) | Yaml / json reader implementation. |
 | stable | [twig-writer](https://www.npmjs.com/package/@static-pages/twig-writer) | Twig template writer, uses [Twing](https://www.npmjs.com/package/twing). |
-| not started | nunjucks-writer | Will be implemented after the twig-writer |
+| stable | [nunjucks-writer](https://www.npmjs.com/package/@static-pages/twig-writer) | [Nunjucks](https://www.npmjs.com/package/nunjucks) template writer |
 | not started | ejs-writer | Will be implemented after the twig nunjucks-writer |
 | not started | mustache-writer | Will be implemented after the ejs-writer |
 | not started | pug-writer | Will be implemented after the mustache-writer |
