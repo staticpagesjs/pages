@@ -10,6 +10,7 @@ It will support a lot of data sources for input
 - YAML
 - Markdown (front-matter style)
 - JSON
+- Toml
 - Databases
 
 And a lot of renderers for the output
@@ -34,6 +35,7 @@ And a lot of renderers for the output
 | stable | [file-reader](https://www.npmjs.com/package/@static-pages/file-reader) | Generic reader implementation. |
 | stable | [file-writer](https://www.npmjs.com/package/@static-pages/file-writer) | Generic writer implementation. |
 | stable | [markdown-reader](https://www.npmjs.com/package/@static-pages/markdown-reader) | Markdown reader implementation. |
+| not started | toml-reader | Toml reader implementation. |
 | stable | [yaml-reader](https://www.npmjs.com/package/@static-pages/yaml-reader) | Yaml / json reader implementation. |
 | stable | [twig-writer](https://www.npmjs.com/package/@static-pages/twig-writer) | Twig template writer, uses [Twing](https://www.npmjs.com/package/twing). |
 | stable | [nunjucks-writer](https://www.npmjs.com/package/@static-pages/twig-writer) | [Nunjucks](https://www.npmjs.com/package/nunjucks) template writer |
