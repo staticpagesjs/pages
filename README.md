@@ -41,7 +41,7 @@ And a lot of renderers for the output
 | stable | [twig-writer](https://www.npmjs.com/package/@static-pages/twig-writer) | Twig template writer, uses [Twing](https://www.npmjs.com/package/twing). |
 | stable | [nunjucks-writer](https://www.npmjs.com/package/@static-pages/twig-writer) | [Nunjucks](https://www.npmjs.com/package/nunjucks) template writer. |
 | beta | [ejs-writer](https://www.npmjs.com/package/@static-pages/ejs-writer) | [EJS](https://www.npmjs.com/package/ejs) template writer. |
-| not started | mustache-writer | Will be implemented after the ejs-writer |
+| beta | [mustache-writer](https://www.npmjs.com/package/@static-pages/mustache-writer) | [Mustache](https://www.npmjs.com/package/mustache) template writer. |
 | not started | pug-writer | Will be implemented after the mustache-writer |
 | not started | dot-writer | Will be implemented after the pug-writer |
 | not started | handlebars-writer | Will be implemented after the dot-writer |
