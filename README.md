@@ -27,9 +27,9 @@ And a lot of renderers for the output
 
 ## Usage / Examples
 
-You can use JS API to generate pages; see an example repository: https://github.com/staticpagesjs/example-site-js
+You can use JS API to generate pages; see an example repository: [https://github.com/staticpagesjs/example-site-js](https://github.com/staticpagesjs/example-site-js)
 
-Alternatively there is a CLI tool to help you; see an example repository: https://github.com/staticpagesjs/example-site-cli
+Alternatively there is a CLI tool to help you; see an example repository: [https://github.com/staticpagesjs/example-site-cli](https://github.com/staticpagesjs/example-site-cli)
 
 ## Roadmap
 
