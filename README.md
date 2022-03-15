@@ -11,6 +11,7 @@ It will support a lot of data sources for input
 - Markdown (front-matter style)
 - JSON
 - Toml
+- Ini
 - Databases
 
 And a lot of renderers for the output
@@ -43,6 +44,7 @@ Alternatively there is a CLI tool to help you; see an example repository: [https
 | stable | [file-writer](https://www.npmjs.com/package/@static-pages/file-writer) | Generic writer implementation. |
 | stable | [markdown-reader](https://www.npmjs.com/package/@static-pages/markdown-reader) | Markdown reader implementation. |
 | not started | toml-reader | Toml reader implementation. |
+| not started | ini-reader | Ini reader implementation. |
 | stable | [yaml-reader](https://www.npmjs.com/package/@static-pages/yaml-reader) | Yaml / json reader implementation. |
 | stable | [twig-writer](https://www.npmjs.com/package/@static-pages/twig-writer) | Twig template writer, uses [Twing](https://www.npmjs.com/package/twing). |
 | stable | [nunjucks-writer](https://www.npmjs.com/package/@static-pages/twig-writer) | [Nunjucks](https://www.npmjs.com/package/nunjucks) template writer. |
