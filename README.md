@@ -25,6 +25,12 @@ And a lot of renderers for the output
 - Underscore
 - Placeholder
 
+## Usage / Examples
+
+You can use JS API to generate pages; see an example repository: https://github.com/staticpagesjs/example-site-js
+
+Alternatively there is a CLI tool to help you; see an example repository: https://github.com/staticpagesjs/example-site-cli
+
 ## Roadmap
 
 | % | Task | Details |
