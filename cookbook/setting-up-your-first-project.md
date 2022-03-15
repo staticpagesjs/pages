@@ -24,7 +24,7 @@ project
 |   |-- folderB
 |   |   `-- page4.md
 |   `-- index.md
-`-- views - contains the templates for the renderers (twig, nunjucks, ejs, mustache etc.)
+`-- views - contains the templates (twig, nunjucks, ejs, mustache etc.)
     `-- main.twig
 ```
 
@@ -60,9 +60,21 @@ project
 |   |-- news-20201201.md
 |   |-- news-20201202.md
 |   `-- news-20201203.md
-`-- views - contains the templates for the renderers (twig, nunjucks, ejs, mustache etc.)
+`-- views - contains the templates (twig, nunjucks, ejs, mustache etc.)
     |-- news.twig
     `-- main.twig
+```
+
+## Installing
+
+Can be installed from NPM or pulling a pre-installed docker image from DockerHub.
+
+```sh
+$ npm i @static-pages/core @static-pages/cli @static-pages/markdown-reader @static-pages/twig-writer
+```
+
+```sh
+$ docker pull staticpages/cli
 ```
 
 ## Running the static pages generator
@@ -80,3 +92,29 @@ Create a .js file where you configure the static pages rendering flow.
 Using the cli tool you have the option to store the configuration in a JSON or YAML file or alternatively you can specify every option as a cli argument.
 
 > TODO: extend this section
+
+### Docker image
+
+> TODO: extend
+
+On Linux/Mac:
+```sh
+$ docker run -it --rm -v "$(pwd):/project" staticpages/cli rimraf build/ && staticpages --config build.config.yaml
+```
+
+On Windows:
+```sh
+> docker run -it --rm -v "%cd%:/project" staticpages/cli rimraf build/ && staticpages --config build.config.yaml
+```
+
+> TODO: extend
+
+On Linux/Mac:
+```sh
+$ docker run -it --rm -v "$(pwd):/project" staticpages/cli chokidar "**/*.md" "**/*.yaml" "**/*.js" "**/*.twig" -c "rimraf build/ && staticpages --config build.config.yaml"
+```
+
+On Windows:
+```sh
+> docker run -it --rm -v "%cd%:/project" staticpages/cli chokidar "**/*.md" "**/*.yaml" "**/*.js" "**/*.twig" -c "rimraf build/ && staticpages --config build.config.yaml"
+```
