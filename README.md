@@ -110,6 +110,8 @@ module.exports = ({ cwd = 'pages', pattern = '**/*.json' } = {}) => ({
 
 This version uses the `@static-pages/file-reader` as a base implementation. Enables incremental builds out-of-the-box for your reader.
 
+> Tip: When you use the `staticpages/cli` Docker image, the `@static-pages/file-reader` is already pre-installed for you.
+
 ```js
 const fileReader = require('@static-pages/file-reader').default;
 
@@ -145,6 +147,8 @@ module.exports = ({ outDir = 'build' }) => (
 ### Example writer #2
 
 This version uses the `@static-pages/file-writer` as a base implementation. The `JSON.stringify` should be replaced with your own template rendering logic.
+
+> Tip: When you use the `staticpages/cli` Docker image, the `@static-pages/file-writer` is already pre-installed for you.
 
 ```js
 const fs = require('fs');
