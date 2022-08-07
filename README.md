@@ -50,7 +50,7 @@ Alternatively there is a CLI tool to help you; see an example repository: [https
 | stable | [nunjucks-writer](https://www.npmjs.com/package/@static-pages/twig-writer) | [Nunjucks](https://www.npmjs.com/package/nunjucks) template writer. |
 | beta | [ejs-writer](https://www.npmjs.com/package/@static-pages/ejs-writer) | [EJS](https://www.npmjs.com/package/ejs) template writer. |
 | beta | [mustache-writer](https://www.npmjs.com/package/@static-pages/mustache-writer) | [Mustache](https://www.npmjs.com/package/mustache) template writer. |
-| not started | pug-writer | Will be implemented after the mustache-writer |
+| beta | [pug-writer](https://www.npmjs.com/package/@static-pages/pug-writer) | [Pug](https://www.npmjs.com/package/pug) template writer. |
 | not started | dot-writer | Will be implemented after the pug-writer |
 | not started | handlebars-writer | Will be implemented after the dot-writer |
 | not started | jade-writer | Will be implemented after the handlebars-writer |
@@ -65,17 +65,17 @@ Input readers and output writers are easily extensible allowing you to make your
 
 ### Example reader #1
 
-This version implements everything from scratch.
+This sample implements a simple JSON reader from scratch.
 
 ```js
-const fs = require('fs');
-const path = require('path');
-const glob = require('fast-glob');
+import * as fs from 'fs';
+import * as path from 'path';
+import glob from 'fast-glob';
 
-module.exports = ({ cwd = 'pages', pattern = '**/*.json' } = {}) => ({
+export default ({ cwd = 'pages', pattern = '**/*.json' } = {}) => ({
   [Symbol.iterator]() {
-    const absCwd = path.resolve(cwd);
-    const files = glob.sync(pattern, { cwd: absCwd, absolute: true });
+    const files = glob.sync(pattern, { cwd });
+    const resolvedCwd = path.resolve(cwd);
     return {
       next() {
         const file = files.shift();
@@ -83,17 +83,16 @@ module.exports = ({ cwd = 'pages', pattern = '**/*.json' } = {}) => ({
           return { done: true };
         }
 
-        const relativePath = path.relative(absCwd, file);
         const extName = path.extname(file);
         const payload = JSON.parse(fs.readFileSync(file, 'utf-8'));
 
         const data = {
           // implement header field as you feel, add more if needed
           header: {
-            cwd: absCwd,
-            path: relativePath,
-            dirname: path.dirname(relativePath),
-            basename: path.basename(relativePath, extName),
+            cwd: resolvedCwd,
+            path: file,
+            dirname: path.dirname(file),
+            basename: path.basename(file, extName),
             extname: extName,
           },
           ...payload,
@@ -108,20 +107,19 @@ module.exports = ({ cwd = 'pages', pattern = '**/*.json' } = {}) => ({
 
 ### Example reader #2
 
-This version uses the `@static-pages/file-reader` as a base implementation. Enables incremental builds out-of-the-box for your reader.
+This sample uses the `@static-pages/file-reader` as a base implementation. Enables incremental builds out-of-the-box for your reader.
 
-> Tip: When you use the `staticpages/cli` Docker image, the `@static-pages/file-reader` is already pre-installed for you.
+> Tip: When you use the `staticpages/cli` Docker image, the `@static-pages/file-reader` is already pre-installed.
 
 ```js
-const fileReader = require('@static-pages/file-reader').default;
+import fileReader from '@static-pages/file-reader';
 
-module.exports = ({ cwd = 'pages', pattern = '**/*.json', incremental = false } = {}) => ({
+export default ({ cwd = 'pages', pattern = '**/*.json', ...rest } = {}) => ({
   *[Symbol.iterator]() {
-    for (const raw of fileReader({ cwd, pattern, incremental })) {
-      const payload = JSON.parse(raw.body);
+    for (const raw of fileReader({ cwd, pattern, ...rest })) {
       yield {
         header: raw.header,
-        ...payload,
+        ...JSON.parse(raw.body),
       };
     }
   }
@@ -133,8 +131,9 @@ module.exports = ({ cwd = 'pages', pattern = '**/*.json', incremental = false } 
 The `JSON.stringify` should be replaced with your own template rendering logic.
 
 ```js
-const fs = require('fs');
-module.exports = ({ outDir = 'build' }) => (
+import * as fs from 'fs';
+
+export default ({ outDir = 'dist' }) => (
   (data) => {
     fs.writeFileSync(
       outDir + '/' + (data?.header?.path || 'unnamed'),
@@ -146,17 +145,18 @@ module.exports = ({ outDir = 'build' }) => (
 
 ### Example writer #2
 
-This version uses the `@static-pages/file-writer` as a base implementation. The `JSON.stringify` should be replaced with your own template rendering logic.
+This sample uses the `@static-pages/file-writer` as a base implementation. The `JSON.stringify` should be replaced with your own template rendering logic.
 
-> Tip: When you use the `staticpages/cli` Docker image, the `@static-pages/file-writer` is already pre-installed for you.
+> Tip: When you use the `staticpages/cli` Docker image, the `@static-pages/file-writer` is already pre-installed.
 
 ```js
-const fs = require('fs');
-const fileWriter = require('@static-pages/file-writer').default;
-module.exports = ({ gloabls = {}, ...rest }) => {
+import * as fs from 'fs';
+import fileWriter from '@static-pages/file-writer';
+
+export default (opts) => {
   const writer = fileWriter({
-    ...rest,
-    renderer: JSON.stringify(data, null, 4)
+    ...opts,
+    renderer: data => JSON.stringify(data, null, 4)
   });
   return d => writer(d);
 };
