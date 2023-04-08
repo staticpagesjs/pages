@@ -87,10 +87,10 @@ Here you can find a few example repositories that are built to demonstrate the i
 | stable | [markdown-reader](https://www.npmjs.com/package/@static-pages/markdown-reader) | Markdown reader implementation. |
 | stable | [yaml-reader](https://www.npmjs.com/package/@static-pages/yaml-reader) | Yaml / json reader implementation. |
 | stable | [twig-writer](https://www.npmjs.com/package/@static-pages/twig-writer) | Twig template writer, uses [Twing](https://www.npmjs.com/package/twing). |
-| stable | [nunjucks-writer](https://www.npmjs.com/package/@static-pages/twig-writer) | [Nunjucks](https://www.npmjs.com/package/nunjucks) template writer. |
-| stable | [ejs-writer](https://www.npmjs.com/package/@static-pages/ejs-writer) | [EJS](https://www.npmjs.com/package/ejs) template writer. |
-| stable | [mustache-writer](https://www.npmjs.com/package/@static-pages/mustache-writer) | [Mustache](https://www.npmjs.com/package/mustache) template writer. |
-| stable | [pug-writer](https://www.npmjs.com/package/@static-pages/pug-writer) | [Pug](https://www.npmjs.com/package/pug) template writer. |
+| needs update | [nunjucks-writer](https://www.npmjs.com/package/@static-pages/twig-writer) | [Nunjucks](https://www.npmjs.com/package/nunjucks) template writer. |
+| needs update | [ejs-writer](https://www.npmjs.com/package/@static-pages/ejs-writer) | [EJS](https://www.npmjs.com/package/ejs) template writer. |
+| needs update | [mustache-writer](https://www.npmjs.com/package/@static-pages/mustache-writer) | [Mustache](https://www.npmjs.com/package/mustache) template writer. |
+| needs update | [pug-writer](https://www.npmjs.com/package/@static-pages/pug-writer) | [Pug](https://www.npmjs.com/package/pug) template writer. |
 
 
 ## Cancelled packages
