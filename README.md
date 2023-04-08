@@ -1,4 +1,4 @@
-# @static-pages-js
+# Static Pages JS
 
 > This project is currently in development by a single developer. There is much left to do. I plan to stick to this project and release updates and new components as my free time allows.
 
@@ -92,6 +92,7 @@ Here you can find a few example repositories that are built to demonstrate the i
 | needs update | [mustache-writer](https://www.npmjs.com/package/@static-pages/mustache-writer) | [Mustache](https://www.npmjs.com/package/mustache) template writer. |
 | needs update | [pug-writer](https://www.npmjs.com/package/@static-pages/pug-writer) | [Pug](https://www.npmjs.com/package/pug) template writer. |
 
+Visit on NPM: [static-pages](https://www.npmjs.com/search?q=%40static-pages)
 
 ## Cancelled packages
 
