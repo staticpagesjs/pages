@@ -2,13 +2,11 @@
 
 This project is unopinionated about almost everything; yet here are some recipes that are useful for starting your workflow. Default values for readers and writers are set to match these recipes.
 
-## Example repositories
+## Example repository
 
-There are two example repositories that showcases what can be achieved with only a few lines of code.
+There is an example repository that showcases what can be achieved with only a few lines of code.
 
-- One uses the JS API to generate pages: [https://github.com/staticpagesjs/example-site-js](https://github.com/staticpagesjs/example-site-js)
-
-- The other is using the CLI tool: [https://github.com/staticpagesjs/example-site-cli](https://github.com/staticpagesjs/example-site-cli)
+[https://github.com/staticpagesjs/example-site](https://github.com/staticpagesjs/example-site)
 
 
 ## Directory strucutre

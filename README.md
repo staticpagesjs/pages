@@ -1,19 +1,25 @@
 # Static Pages JS
 
-> This project is currently in development by a single developer. There is much left to do. I plan to stick to this project and release updates and new components as my free time allows.
+> This project is in development by a single developer. There is much left to do, and this project page is also a bit outdated now. I plan to stick to this project and release updates and new components as my free time allows.
 
 Yet another static pages generator for small and mid-sized projects written in JavaScript (TypeScript).
 
 ## Concepts
 
-I try to build this project as a toolbox, where each functionality is separated into its small well testable, documentable package, and build a documentation page later that links these components together with examples and usage cases.
+I try to build this project as a toolbox, where each functionality is separated into its small well testable, documentable package, and build a documentation page later that links these components together with examples and use cases.
 
-The main component is the `@static-pages/core` which is the glue between the `reader`, the `controller` and the `writer` modules.
+The main component is the [`@static-pages/core`](https://npmjs.com/package/@static-pages/core) which provides the base functionalities. Other packages adds functionalities on top of that. A starter package that links together a few useful things is available at [`@static-pages/starter`](https://npmjs.com/package/@static-pages/starter). It is a good point to start.
 
-How does this work?
-- __Readers__ provides an iterable list of page data.
-- __Controllers__ can manipulate and extend each data object.
-- __Writers__ render the final output for you.
+### How does the static page generation works?
+
+The user has to define `Route`s that describes a workflow for a batch of "similar" pages.
+A route has a source and a destination, and optionally a controller that manipulates the data in between.
+
+A source is not more than an iterable list of page data. There are helpers to read this data from
+various sources (local fs, Gitlab, Github, etc.) and file formats (JSON, YAML, Markdown, etc.).
+
+A destination is simply a callback function that renders and stores the actual page. There are helpers to render with popular template engines and to save them in the desired storage type.
+
 
 ## Features (and the future)
 
@@ -21,10 +27,10 @@ How does this work?
 There are numerous sources to consider when it comes to **reading** and **writing** data. While the filesystem may be the most common source, other options such as web APIs to access Github, GitLab or other Git repositories can also be utilized.
 
 I would like to provide the following packages for these file IO related tasks:
-- `@static-pages/fileio`: reader and writer which uses the filesystem.
-- `@static-pages/gitio`: a special reader and writer which can sit on a git repository on the local filesystem, and read/write specific branches without checkouts. My use case here is producing a live website in a repository using data from a different source repository, while enabling everyone to work on their separate branches.
-- `@static-pages/gitlabio`: a reader and writer to allow you to access GitLab repository files.
-- `@static-pages/githubio`: a reader and writer to allow you to access Github repository files.
+- `@static-pages/io`: helpers to read and write to an abstract filesystem.
+- `@static-pages/gitfs`: a special filesystem implementation which can look into a local git repository, and read/write specific branches without checkouts. My use case here is to produce a live website served from a git repository where each branch corresponds to a source git repository branch.
+- `@static-pages/gitlabfs`: a filesystem implementation to allow you to access GitLab repository files.
+- `@static-pages/githubfs`: a filesystem implementation to allow you to access Github repository files.
 
 Under consideration: SQL database wrapper packages for SQLite, Oralce, Postgre, Mongo, and any other popular ones.
 
@@ -38,21 +44,22 @@ I plan to provide examples later with JSON, YAML, Markdown, Toml, INI inputs wit
 
 **Renderers** can transform your data to a webpage with a template. Again there are a lot of packages out there doing this better than I ever could. However I will try to make and maintain a few wrappers for Twig, EJS, Mustache and Pug for convience and to provide some examples.
 
-### Convience packages
-For the basic use cases I'm planning a few packages to merge together some functionality.
+Some popular template engines will get a bridge package under the `@static-pages` namespace.
+These packages will help to integrate these template engies better in the system.
 
-Lets say you have TWIG templates and rendering to filesystem. Here comes the `@static-pages/twig-writer` package to the rescue. Saves you the `@static-pages/fileio` and `@static-pages/twig-renderer` (or a third party package) install and configuration hassles.
+Planned:
+- [`@static-pages/twig`](https://npmjs.com/package/@static-pages/twig)
+- `@static-pages/ejs`
+- `@static-pages/pug`
+- `@static-pages/nunjuck`
+- `@static-pages/mustache`
 
-My plans to release and maintain these packages:
-- `@static-pages/yaml-reader`: read YAML and JSON
-- `@static-pages/markdown-reader`: read front-matter style markdown
-- `@static-pages/twig-writer`: renders twig templates to filesystem
-
-And the following are under consideration (they exists now but I'm not sure its needed):
-- `@static-pages/ejs-writer`: renders ejs templates to filesystem
-- `@static-pages/mustache-writer`: renders mustache templates to filesystem
-- `@static-pages/pug-writer`: renders pug templates to filesystem
-- `@static-pages/nunjucks-writer`: renders twig-like templates to filesystem
+Not on the planned list, because its easy to configure without a bridge package:
+- `dot`
+- `handlebars`
+- `jade`
+- `underscore`
+- many more
 
 ### Server side and administration
 Lately my primary focus is on making administration interfaces and linking our existing workflow together with our static pages powered sites.
@@ -61,163 +68,66 @@ Currently we are experimenting with ideas like:
 - Workflows with multiple roles, role based access and editing.
 - And keeping everything simple but extensible.
 
-I would like to build a component which can run on the serverside, and can provide an admin page for editors. Validating by editor roles and data schemas, building on save, with live previews and many more.
+I would like to build a headless CMS that can provide an admin page, simlar what [DecapCMS](https://decapcms.org/) does, but in a more programmable and flexible way.
+Validating by editor roles and data schemas, building on save, with live previews and many more.
 A lot can change until I'm ready with a working prototype, but one thing I'd definitely like to provide in the Static Pages project is a decoupled admin user interface alongside the existing generator.
+
+### Outdated packages
+There are some outdated packages in the `@static-pages` namespace that will be marked as deprecated after some time.
+
+These packages still can work together with the latest static pages engine, and probably always will, but they are built around an outdated concept or there are better alternatives available.
+
+Previously the reading and writing was split into multiple different packages, but since `@static-pages/io` and the abstract filesystem these became obsolete:
+
+- `@static-pages/file-reader`
+- `@static-pages/file-writer`
+- `@static-pages/yaml-reader`
+- `@static-pages/markdown-reader`
+- `@static-pages/twig-writer`
+- `@static-pages/nunjucks-writer`
+- `@static-pages/ejs-writer`
+- `@static-pages/mustache-writer`
+- `@static-pages/pug-writer`
+
+The following package(s) became deprecated thanks to the redesign of the bridge packages for template engines:
+
+- `@static-pages/twig-renderer` (use `@static-pages/twig`)
 
 
 ## Usage / Examples
 
-Here you can find a few example repositories that are built to demonstrate the idea and to provide a template for you.
+Here you can find an example repository that are built to demonstrate the idea and to provide a template for you.
 
-- You can use JS API to generate pages: [https://github.com/staticpagesjs/example-site-js](https://github.com/staticpagesjs/example-site-js)
-
-- Alternatively there is a CLI tool to help you: [https://github.com/staticpagesjs/example-site-cli](https://github.com/staticpagesjs/example-site-cli)
+[https://github.com/staticpagesjs/example-site](https://github.com/staticpagesjs/example-site)
 
 
 ## Current status
 
-| % | Task | Details |
+| % | Component | Details |
 |---|------|---------|
-| stable | [Core module](https://www.npmjs.com/package/@static-pages/core) | The main component. Wires the readers writers and controllers together. |
+| stable | [starter](https://www.npmjs.com/package/@static-pages/starter) | A good package to test this tool with. |
+| near-stable | [core](https://www.npmjs.com/package/@static-pages/core) | The main component. |
+| stable | [io](https://www.npmjs.com/package/@static-pages/io) | Helpers to read and write page data. Needs unit tests. |
+| 80% | [nodefs](https://www.npmjs.com/package/@static-pages/nodefs) | Adds "incremental build" support to nodejs fs module. |
+| 50% | [gitfs](https://www.npmjs.com/package/@static-pages/gitfs) | Git repository fs. |
+| TODO | [gitlabfs](https://www.npmjs.com/package/@static-pages/gitlabfs) | Gitlab repository fs. |
+| TODO | [githubfs](https://www.npmjs.com/package/@static-pages/githubfs) | Github repository fs. |
+| 1% | [Documentation/project page](https://staticpagesjs.github.io/) | This site you are looking now. |
 | needs update | [CLI module](https://www.npmjs.com/package/@static-pages/cli) | Allows to easily use the static generator from the command line. |
 | needs update | [Docker image](https://hub.docker.com/repository/docker/staticpages/cli) | A docker image that contains my packages ready to use in a build process. |
-| 4% | [Documentation/project page](https://staticpagesjs.github.io/) | This site you are looking now. |
-| deprecated | [file-reader](https://www.npmjs.com/package/@static-pages/file-reader) | Generic reader implementation. Will be merged to `fileio`. |
-| deprecated | [file-writer](https://www.npmjs.com/package/@static-pages/file-writer) | Generic writer implementation. Will be merged to `fileio`. |
-| stable | [markdown-reader](https://www.npmjs.com/package/@static-pages/markdown-reader) | Markdown reader implementation. |
-| stable | [yaml-reader](https://www.npmjs.com/package/@static-pages/yaml-reader) | Yaml / json reader implementation. |
-| stable | [twig-writer](https://www.npmjs.com/package/@static-pages/twig-writer) | Twig template writer, uses [Twing](https://www.npmjs.com/package/twing). |
-| needs update | [nunjucks-writer](https://www.npmjs.com/package/@static-pages/twig-writer) | [Nunjucks](https://www.npmjs.com/package/nunjucks) template writer. |
-| needs update | [ejs-writer](https://www.npmjs.com/package/@static-pages/ejs-writer) | [EJS](https://www.npmjs.com/package/ejs) template writer. |
-| needs update | [mustache-writer](https://www.npmjs.com/package/@static-pages/mustache-writer) | [Mustache](https://www.npmjs.com/package/mustache) template writer. |
-| needs update | [pug-writer](https://www.npmjs.com/package/@static-pages/pug-writer) | [Pug](https://www.npmjs.com/package/pug) template writer. |
+
 
 Visit on NPM: [static-pages](https://www.npmjs.com/search?q=%40static-pages)
-
-## Cancelled packages
-
-These packages was on the roadmap previously, but got dropped because they are easily configurable with `fileio` and a third party package.
-
-- toml-reader
-- ini-reader
-- dot-writer
-- handlebars-writer
-- jade-writer
-- underscore-writer
-- placeholder-writer
 
 
 ## Roadmap
 
-1. Implement, test and document `fileio` package.
-2. Implement, test and document `gitio` package.
-3. Implement, test and document `gitlabio` package.
-4. Review and deprecate current packages if needed.
+1. Create a node filesystem implementation that can process files incrementally (only read changed ones).
+2. Create a local git filesystem implementation.
+2. Create a Gitlab filesystem implementation.
+3. Create a Github filesystem implementation.
+4. Review and deprecate outdated packages if needed.
 5. Create a server-side REST API component.
-6. Create an admin UI that uses the REST API or the Gitlab API directly.
+6. Create a CMS admin UI that uses the REST API or the Gitlab/Github API.
 7. Add documentation and examples where needed. Cookbook.
 8. Determine whats next.
-
-
-## Your own readers and writers
-
-Input readers and output writers are easily extensible allowing you to make your own implementation.
-
-### Example reader #1
-
-This sample implements a simple JSON reader from scratch.
-
-```js
-import * as fs from 'fs';
-import * as path from 'path';
-import glob from 'fast-glob';
-
-export default ({ cwd = 'pages', pattern = '**/*.json' } = {}) => ({
-  [Symbol.iterator]() {
-    const files = glob.sync(pattern, { cwd });
-    const resolvedCwd = path.resolve(cwd);
-    return {
-      next() {
-        const file = files.shift();
-        if (!file) { // no more input
-          return { done: true };
-        }
-
-        const extName = path.extname(file);
-        const payload = JSON.parse(fs.readFileSync(file, 'utf-8'));
-
-        const data = {
-          // implement header field as you feel, add more if needed
-          header: {
-            cwd: resolvedCwd,
-            path: file,
-            dirname: path.dirname(file),
-            basename: path.basename(file, extName),
-            extname: extName,
-          },
-          ...payload,
-        };
-
-        return { value: data };
-      }
-    };
-  }
-});
-```
-
-### Example reader #2
-
-This sample uses the `@static-pages/file-reader` as a base implementation. Enables incremental builds out-of-the-box for your reader.
-
-> Tip: When you use the `staticpages/cli` Docker image, the `@static-pages/file-reader` is already pre-installed.
-
-```js
-import fileReader from '@static-pages/file-reader';
-
-export default ({ cwd = 'pages', pattern = '**/*.json', ...rest } = {}) => ({
-  *[Symbol.iterator]() {
-    for (const raw of fileReader({ cwd, pattern, ...rest })) {
-      yield {
-        header: raw.header,
-        ...JSON.parse(raw.body),
-      };
-    }
-  }
-});
-```
-
-### Example writer #1
-
-The `JSON.stringify` should be replaced with your own template rendering logic.
-
-```js
-import * as fs from 'fs';
-
-export default ({ outDir = 'dist' }) => (
-  ({ value, done }) => {
-    if (!done) fs.writeFileSync(
-      outDir + '/' + (value?.header?.path || 'unnamed'),
-      JSON.stringify(value, null, 4)
-    );
-  }
-);
-```
-
-### Example writer #2
-
-This sample uses the `@static-pages/file-writer` as a base implementation. The `JSON.stringify` should be replaced with your own template rendering logic.
-
-> Tip: When you use the `staticpages/cli` Docker image, the `@static-pages/file-writer` is already pre-installed.
-
-```js
-import * as fs from 'fs';
-import fileWriter from '@static-pages/file-writer';
-
-export default (opts) => {
-  const writer = fileWriter({
-    ...opts,
-    renderer: data => JSON.stringify(data, null, 4)
-  });
-  return d => writer(d);
-};
-```
